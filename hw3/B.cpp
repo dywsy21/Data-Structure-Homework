@@ -40,10 +40,10 @@ signed main(){
     ios::sync_with_stdio(0); cin.tie(0); cout.tie(0);
     int n, m;
     cin >> n >> m;
-    rope<int> sequence(n + 7);
+    rope<int> sequence;
 
     for (int i = 1; i <= n; ++i) {
-        sequence[n - i] = i;
+        sequence.push_back(i);
     }
 
     for (int i = 0; i < m; ++i) {
