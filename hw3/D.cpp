@@ -9,15 +9,13 @@ signed main(){
 
     auto hasDuplicateSubstring = [&](int length) {
         if (length == 0) return true;
-        unordered_set<string> seen;
-        int last_end = -1; // to ensure 2 substrs dont overlap
+        unordered_map<string, int> seen;
         for (int i = 0; i <= n - length; ++i) {
             string substring = s.substr(i, length);
-            if (seen.count(substring) && i >= last_end) {
+            if (seen.count(substring) && i >= seen[substring] + length) {
                 return true;
             }
-            seen.insert(substring);
-            last_end = i + length;
+            seen[substring] = i;
         }
         return false;
     };
