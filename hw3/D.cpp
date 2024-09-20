@@ -9,7 +9,7 @@ signed main(){
 
     auto hasDuplicateSubstring = [&](int length) {
         if (length == 0) return true;
-        unordered_map<string, int> seen;
+        unordered_map<string, int> seen; // val = starting index
         for (int i = 0; i <= n - length; ++i) {
             string substring = s.substr(i, length);
             if (seen.count(substring) && i >= seen[substring] + length) {
