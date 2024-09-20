@@ -30,8 +30,23 @@ using namespace __gnu_cxx;
 signed main(){
     ios::sync_with_stdio(0); cin.tie(0); cout.tie(0);
     rope<int> r;
-    //TODO
+    int n, m;
+    cin >> n >> m;
+    vector<int> sequence(n);
+    iota(sequence.begin(), sequence.end(), 1); // Fill with 1 to n
 
-    system("pause");
+    for (int i = 0; i < m; ++i) {
+        int l, r;
+        cin >> l >> r;
+        reverse(sequence.begin() + l - 1, sequence.begin() + r);
+        vector<int> temp(sequence.begin() + l - 1, sequence.begin() + r);
+        sequence.erase(sequence.begin() + l - 1, sequence.begin() + r);
+        sequence.insert(sequence.end(), temp.begin(), temp.end());
+    }
+
+    for (int num : sequence) {
+        cout << num;
+    }
+    cout << endl;
     return 0;
 }
