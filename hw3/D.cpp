@@ -10,10 +10,14 @@ signed main(){
     auto hasDuplicateSubstring = [&](int length) {
         if (length == 0) return true;
         unordered_set<string> seen;
+        int last_end = -1;
         for (int i = 0; i <= n - length; ++i) {
             string substring = s.substr(i, length);
-            if (seen.count(substring)) return true;
+            if (seen.count(substring) && i >= last_end) {
+                return true;
+            }
             seen.insert(substring);
+            last_end = i + length;
         }
         return false;
     };
