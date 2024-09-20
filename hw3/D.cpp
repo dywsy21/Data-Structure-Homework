@@ -8,7 +8,6 @@ signed main(){
     int n; string s; cin >> n >> s;
 
     auto hasDuplicateSubstring = [&](int length) {
-        if (length == 0) return true;
         unordered_map<string, int> seen; // val = starting index
         for (int i = 0; i <= n - length; i++) {
             string substring = s.substr(i, length);
@@ -20,7 +19,7 @@ signed main(){
         return false;
     };
 
-    int left = 0, right = n, ans = 0;
+    int left = 1, right = n, ans = 0;
     while (left <= right) {
         int mid = left + (right - left) / 2;
         if (hasDuplicateSubstring(mid)) {
