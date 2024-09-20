@@ -10,7 +10,7 @@ signed main(){
     auto hasDuplicateSubstring = [&](int length) {
         if (length == 0) return true;
         unordered_map<string, int> seen; // val = starting index
-        for (int i = 0; i <= n - length; ++i) {
+        for (int i = 0; i <= n - length; i++) {
             string substring = s.substr(i, length);
             if (seen.count(substring) && i >= seen[substring] + length) {
                 return true;
@@ -20,7 +20,7 @@ signed main(){
         return false;
     };
 
-    int left = 1, right = n, ans = 0;
+    int left = 0, right = n, ans = 0;
     while (left <= right) {
         int mid = left + (right - left) / 2;
         if (hasDuplicateSubstring(mid)) {
@@ -31,7 +31,7 @@ signed main(){
         }
     }
 
-    cout << ans << endl;
+    cout << ans;
 
     // system("pause");
     return 0;
