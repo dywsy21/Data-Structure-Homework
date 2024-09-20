@@ -27,12 +27,21 @@ using namespace __gnu_cxx;
 //     }
 // };
 
+template <typename T>
+void reverse(rope<T>& r) {
+    // reverse manually
+    int n = r.size();
+    for (int i = 0; i < n / 2; ++i) {
+        swap(r.mutable_reference_at(i), r.mutable_reference_at(n - i - 1));
+    }
+}
+
 signed main(){
     ios::sync_with_stdio(0); cin.tie(0); cout.tie(0);
     int n, m;
     cin >> n >> m;
     rope<int> sequence;
-    
+
     for (int i = 1; i <= n; ++i) {
         sequence.push_back(i);
     }
@@ -42,12 +51,13 @@ signed main(){
         cin >> l >> r;
         rope<int> sub = sequence.substr(l - 1, r - l + 1);
         sequence.erase(l - 1, r - l + 1);
+        reverse(sub);
         sequence.append(sub);
     }
 
     for (int i = 0; i < sequence.size(); ++i) {
         cout << sequence[i] << " ";
     }
-    cout << endl;
+
     return 0;
 }
