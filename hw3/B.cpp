@@ -29,23 +29,23 @@ using namespace __gnu_cxx;
 
 signed main(){
     ios::sync_with_stdio(0); cin.tie(0); cout.tie(0);
-    rope<int> r;
     int n, m;
     cin >> n >> m;
-    vector<int> sequence(n);
-    iota(sequence.begin(), sequence.end(), 1); // Fill with 1 to n
+    rope<int> sequence;
+    for (int i = 1; i <= n; ++i) {
+        sequence.push_back(i);
+    }
 
     for (int i = 0; i < m; ++i) {
         int l, r;
         cin >> l >> r;
-        reverse(sequence.begin() + l - 1, sequence.begin() + r);
-        vector<int> temp(sequence.begin() + l - 1, sequence.begin() + r);
-        sequence.erase(sequence.begin() + l - 1, sequence.begin() + r);
-        sequence.insert(sequence.end(), temp.begin(), temp.end());
+        rope<int> sub = sequence.substr(l - 1, r - l + 1);
+        sequence.erase(l - 1, r - l + 1);
+        sequence.append(sub);
     }
 
-    for (int num : sequence) {
-        cout << num;
+    for (int i = 0; i < sequence.size(); ++i) {
+        cout << sequence[i];
     }
     cout << endl;
     return 0;
