@@ -20,7 +20,7 @@ signed main(){
         return false;
     };
 
-    int left = 0, right = n, ans = 0;
+    int left = 1, right = n, ans = 0;
     while (left <= right) {
         int mid = left + (right - left) / 2;
         if (hasDuplicateSubstring(mid)) {
@@ -31,7 +31,7 @@ signed main(){
         }
     }
 
-    cout << ans;
+    cout << ans << endl;
 
     // system("pause");
     return 0;
