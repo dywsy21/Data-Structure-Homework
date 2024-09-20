@@ -32,6 +32,7 @@ signed main(){
     int n, m;
     cin >> n >> m;
     rope<int> sequence;
+    
     for (int i = 1; i <= n; ++i) {
         sequence.push_back(i);
     }
