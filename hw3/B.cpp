@@ -40,21 +40,21 @@ signed main(){
     ios::sync_with_stdio(0); cin.tie(0); cout.tie(0);
     int n, m;
     cin >> n >> m;
-    rope<int> sequence;
+    rope<int> sequence(n + 7);
 
     for (int i = 1; i <= n; ++i) {
-        sequence.push_back(i);
+        sequence[n - i] = i;
     }
 
     for (int i = 0; i < m; ++i) {
         int l, r;
         cin >> l >> r;
-        rope<int> sub = sequence.substr(l - 1, r - l + 1);
-        sequence.erase(l - 1, r - l + 1);
-        reverse(sub);
-        sequence.append(sub);
+        rope<int> sub = sequence.substr(n - r, r - l + 1);
+        // insert sub directly to the beginning
+        sequence.insert(0, sub);
     }
 
+    reverse(sequence);
     for (int i = 0; i < sequence.size(); ++i) {
         cout << sequence[i] << " ";
     }
