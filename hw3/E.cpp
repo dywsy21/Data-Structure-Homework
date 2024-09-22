@@ -46,13 +46,13 @@ signed main(){
         cout << endl;
 #endif
     }
-    for (int i = 0; i < 26; ++i) {
-        for (int j = 1; j <= s.size(); ++j) {
-            if (lower_bound[i][j] == 0) {
-                lower_bound[i][j] = lower_bound[i][j - 1];
-            }
-        }
-    }
+    // for (int i = 0; i < 26; ++i) {
+    //     for (int j = 1; j <= s.size(); ++j) {
+    //         if (lower_bound[i][j] == 0) {
+    //             lower_bound[i][j] = lower_bound[i][j - 1];
+    //         }
+    //     }
+    // }
 
     while (m--) {
         int l1, r1, l2, r2; cin >> l1 >> r1 >> l2 >> r2;
