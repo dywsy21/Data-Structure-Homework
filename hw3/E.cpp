@@ -2,6 +2,16 @@
 using namespace std;
 #define int long long
 
+#define DEBUG
+
+bool is_equal(unordered_set<unordered_set<int>> a, unordered_set<unordered_set<int>> b) {
+    if (a.size() != b.size()) return false;
+    for (auto& s : a) {
+        if (b.find(s) == b.end()) return false;
+    }
+    return true;
+}
+
 
 signed main(){
     ios::sync_with_stdio(0); cin.tie(0); cout.tie(0);
@@ -67,6 +77,8 @@ signed main(){
 #endif
             isomorphic = false;
         } else {
+            // write a hash for unordered_set<unordered_set<int>>
+            unordered_set<unordered_set<int>, > all_positions1, all_positions2;
             for (char c : chars1) {
                 unordered_set<int> positions1, positions2;
                 for (int j = lower_bound[c - 'a'][l1]; j < lower_bound[c - 'a'][r1 + 1]; ++j) {
@@ -82,14 +94,14 @@ signed main(){
                 for (int pos : positions2) cout << pos << " ";
                 cout << endl;
 #endif
-
-                if (positions1 != positions2) {
+                all_positions1.insert(positions1);
+                all_positions2.insert(positions2);
+            }
+            if (!is_equal(all_positions1, all_positions2)) {
 #ifdef DEBUG
-                    cout << "Position sets differ for character " << c << "." << endl;
+                cout << "Position sets differ." << endl;
 #endif
-                    isomorphic = false;
-                    break;
-                }
+                isomorphic = false;
             }
         }
         cout << (isomorphic ? "Yes" : "No") << endl;
