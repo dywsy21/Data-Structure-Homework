@@ -4,6 +4,18 @@ using namespace std;
 
 #define DEBUG
 
+struct hash_set {
+    template <typename T>
+    size_t operator()(const unordered_set<T>& set) const {
+        size_t hash = 0;
+        for (const T& elem : set) {
+            hash ^= hash<T>()(elem) + 0x9e3779b9 + (hash << 6) + (hash >> 2);
+        }
+        return hash;
+    }
+};
+>
+
 bool is_equal(const unordered_set<unordered_set<int>, hash_set>& a, const unordered_set<unordered_set<int>, hash_set>& b) {
     if (a.size() != b.size()) return false;
     for (auto& s : a) {
@@ -77,16 +89,6 @@ signed main(){
 #endif
             isomorphic = false;
         } else {
-            struct hash_set {
-                template <typename T>
-                size_t operator()(const unordered_set<T>& set) const {
-                    size_t hash = 0;
-                    for (const T& elem : set) {
-                        hash ^= hash<T>()(elem) + 0x9e3779b9 + (hash << 6) + (hash >> 2);
-                    }
-                    return hash;
-                }
-            };
 
             unordered_set<unordered_set<int>, hash_set> all_positions1, all_positions2;
             for (char c : chars1) {
