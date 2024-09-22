@@ -37,13 +37,7 @@ signed main(){
     for (int i = 0; i < s.size(); ++i) {
         char c = s[i];
         pos[c - 'a'][c].push_back(i);
-        int index = 0;
-        for (int j = 0; j <= s.size(); ++j) {
-            while (index < pos[c - 'a'][c].size() && pos[c - 'a'][c][index] < j) {
-                ++index;
-            }
-            lower_bound[c - 'a'][j] = index;
-        }
+        lower_bound[c - 'a'][i + 1] = pos[c - 'a'][c].size();
 #ifdef DEBUG
         cout << "Lower bound for character " << c << ": " << endl;
         for (int j = 0; j <= s.size(); ++j) {
@@ -51,6 +45,13 @@ signed main(){
         }
         cout << endl;
 #endif
+    }
+    for (int i = 0; i < 26; ++i) {
+        for (int j = 1; j <= s.size(); ++j) {
+            if (lower_bound[i][j] == 0) {
+                lower_bound[i][j] = lower_bound[i][j - 1];
+            }
+        }
     }
 
     while (m--) {
