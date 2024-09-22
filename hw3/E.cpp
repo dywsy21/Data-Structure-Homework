@@ -77,8 +77,18 @@ signed main(){
 #endif
             isomorphic = false;
         } else {
-            // write a hash for unordered_set<unordered_set<int>>
-            unordered_set<unordered_set<int>, > all_positions1, all_positions2;
+            struct hash_set {
+                template <typename T>
+                size_t operator()(const unordered_set<T>& set) const {
+                    size_t hash = 0;
+                    for (const T& elem : set) {
+                        hash ^= hash<T>()(elem) + 0x9e3779b9 + (hash << 6) + (hash >> 2);
+                    }
+                    return hash;
+                }
+            };
+
+            unordered_set<unordered_set<int>, hash_set> all_positions1, all_positions2;
             for (char c : chars1) {
                 unordered_set<int> positions1, positions2;
                 for (int j = lower_bound[c - 'a'][l1]; j < lower_bound[c - 'a'][r1 + 1]; ++j) {
