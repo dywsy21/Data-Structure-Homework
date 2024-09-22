@@ -14,15 +14,7 @@ signed main(){
     for (int i = 0; i < s.size(); ++i) {
         char c = s[i];
         pos[c - 'a'][c].push_back(i);
-        cout << "Character: " << c << ", Position: " << i << endl;
-        cout << "Lower bound for character " << char('a' + i) << ": ";
-        for (int j = 0; j <= s.size(); ++j) {
-            cout << lower_bound[i][j] << " ";
-        }
-        cout << endl;
     }
-    cout << "Lower bounds calculated." << endl;
-    cout << "Position maps created." << endl;
 
     for (int i = 0; i < 26; ++i) {
         int index = 0;
@@ -32,10 +24,16 @@ signed main(){
             }
             lower_bound[i][j] = index;
         }
+        cout << "Lower bound for character " << (char)('a' + i) << ": " << endl;
+        for (int j = 0; j <= s.size(); ++j) {
+            cout << lower_bound[i][j] << " ";
+        }
+        cout << endl;
     }
 
     while (m--) {
         int l1, r1, l2, r2; cin >> l1 >> r1 >> l2 >> r2;
+        --l1; --r1; --l2; --r2;
         cout << "Query: (" << l1 << ", " << r1 << ") and (" << l2 << ", " << r2 << ")" << endl;
         bool isomorphic = true;
         unordered_set<char> chars1, chars2;
