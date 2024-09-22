@@ -9,7 +9,7 @@ struct hash_set {
     size_t operator()(const unordered_set<T>& set) const {
         size_t hash = 0;
         for (const T& elem : set) {
-            hash ^= hash<T>()(elem) + 0x9e3779b9 + (hash << 6) + (hash >> 2);
+            hash ^= std::hash<T>()(elem) + 0x9e3779b9 + (hash << 6) + (hash >> 2);
         }
         return hash;
     }
