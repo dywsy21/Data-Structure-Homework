@@ -69,9 +69,6 @@ signed main(){
             if (lower_bound[i][r1 + 1] > lower_bound[i][l1]) {
                 chars1.insert('a' + i);
             }
-            // if (lower_bound[i][r2 + 1] > lower_bound[i][l2]) {
-            //     chars2.insert('a' + i);
-            // }
         }
 
 #ifdef DEBUG
