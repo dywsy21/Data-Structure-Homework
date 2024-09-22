@@ -4,7 +4,7 @@ using namespace std;
 
 #define DEBUG
 
-bool is_equal(unordered_set<unordered_set<int>> a, unordered_set<unordered_set<int>> b) {
+bool is_equal(const unordered_set<unordered_set<int>, hash_set>& a, const unordered_set<unordered_set<int>, hash_set>& b) {
     if (a.size() != b.size()) return false;
     for (auto& s : a) {
         if (b.find(s) == b.end()) return false;
