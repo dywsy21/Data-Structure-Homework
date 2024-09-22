@@ -27,38 +27,34 @@ signed main(){
 
     while (m--) {
         int l1, r1, l2, r2; cin >> l1 >> r1 >> l2 >> r2;
-        unordered_map<char, char> map1, map2;
         bool isomorphic = true;
+        unordered_set<char> chars1, chars2;
 
         for (int i = 0; i < 26; ++i) {
-            int start1 = lower_bound[i][l1];
-            int start2 = lower_bound[i][l2];
-            int end1 = lower_bound[i][r1 + 1];
-            int end2 = lower_bound[i][r2 + 1];
-
-            if (end1 - start1 != end2 - start2) {
-                isomorphic = false;
-                break;
+            if (lower_bound[i][r1 + 1] > lower_bound[i][l1]) {
+                chars1.insert('a' + i);
             }
+            if (lower_bound[i][r2 + 1] > lower_bound[i][l2]) {
+                chars2.insert('a' + i);
+            }
+        }
 
-            for (int j = start1; j < end1; ++j) {
-                char c1 = s[pos[i]['a' + i][j]];
-                char c2 = s[pos[i]['a' + i][j + start2 - start1]];
-
-                if (map1.count(c1) && map1[c1] != c2) {
+        if (chars1 != chars2) {
+            isomorphic = false;
+        } else {
+            for (char c : chars1) {
+                unordered_set<int> positions1, positions2;
+                for (int j = lower_bound[c - 'a'][l1]; j < lower_bound[c - 'a'][r1 + 1]; ++j) {
+                    positions1.insert(pos[c - 'a'][c][j] - l1);
+                }
+                for (int j = lower_bound[c - 'a'][l2]; j < lower_bound[c - 'a'][r2 + 1]; ++j) {
+                    positions2.insert(pos[c - 'a'][c][j] - l2);
+                }
+                if (positions1 != positions2) {
                     isomorphic = false;
                     break;
                 }
-                if (map2.count(c2) && map2[c2] != c1) {
-                    isomorphic = false;
-                    break;
-                }
-
-                map1[c1] = c2;
-                map2[c2] = c1;
             }
-
-            if (!isomorphic) break;
         }
         cout << (isomorphic ? "Yes" : "No") << endl;
     }
