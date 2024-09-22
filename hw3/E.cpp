@@ -2,7 +2,7 @@
 using namespace std;
 #define int long long
 
-#define DEBUG
+// #define DEBUG
 
 struct hash_set {
     template <typename T>
@@ -69,26 +69,27 @@ signed main(){
             if (lower_bound[i][r1 + 1] > lower_bound[i][l1]) {
                 chars1.insert('a' + i);
             }
-            if (lower_bound[i][r2 + 1] > lower_bound[i][l2]) {
-                chars2.insert('a' + i);
-            }
+            // if (lower_bound[i][r2 + 1] > lower_bound[i][l2]) {
+            //     chars2.insert('a' + i);
+            // }
         }
 
 #ifdef DEBUG
         cout << "Chars1: ";
         for (char c : chars1) cout << c << " ";
-        cout << "\nChars2: ";
-        for (char c : chars2) cout << c << " ";
-        cout << endl;
 #endif
 
-        if (chars1 != chars2) {
+        for(int i = 0; i < 26; ++i) {
+            if (lower_bound[i][r2 + 1] > lower_bound[i][l2] && chars1.find('a' + i) == chars1.end()) {
+                isomorphic = false;
 #ifdef DEBUG
-            cout << "Character sets differ." << endl;
+                cout << "Character " << (char)('a' + i) << " is in the second substring but not in the first." << endl;
 #endif
-            isomorphic = false;
-        } else {
+                break;
+            }
+        }
 
+        if(isomorphic) {
             unordered_set<unordered_set<int>, hash_set> all_positions1, all_positions2;
             for (char c : chars1) {
                 unordered_set<int> positions1, positions2;
