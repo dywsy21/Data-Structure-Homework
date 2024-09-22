@@ -14,7 +14,6 @@ struct hash_set {
         return hash;
     }
 };
->
 
 bool is_equal(const unordered_set<unordered_set<int>, hash_set>& a, const unordered_set<unordered_set<int>, hash_set>& b) {
     if (a.size() != b.size()) return false;
