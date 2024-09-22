@@ -17,7 +17,7 @@ signed main(){
 
     for (int i = 0; i < 26; ++i) {
         int index = 0;
-        for (int j = 0; j <= 1e5; ++j) {
+        for (int j = 0; j <= 2 * 1e5; ++j) {
             while (index < pos[i]['a' + i].size() && pos[i]['a' + i][index] < j) {
                 ++index;
             }
@@ -60,11 +60,7 @@ signed main(){
 
             if (!isomorphic) break;
         }
-
         cout << (isomorphic ? "Yes" : "No") << endl;
-
-
-
     }
 
 
