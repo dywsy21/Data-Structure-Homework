@@ -37,20 +37,17 @@ signed main(){
     for (int i = 0; i < s.size(); ++i) {
         char c = s[i];
         pos[c - 'a'][c].push_back(i);
-    }
-
-    for (int i = 0; i < 26; ++i) {
         int index = 0;
         for (int j = 0; j <= s.size(); ++j) {
-            while (index < pos[i]['a' + i].size() && pos[i]['a' + i][index] < j) {
+            while (index < pos[c - 'a'][c].size() && pos[c - 'a'][c][index] < j) {
                 ++index;
             }
-            lower_bound[i][j] = index;
+            lower_bound[c - 'a'][j] = index;
         }
 #ifdef DEBUG
-        cout << "Lower bound for character " << (char)('a' + i) << ": " << endl;
+        cout << "Lower bound for character " << c << ": " << endl;
         for (int j = 0; j <= s.size(); ++j) {
-            cout << lower_bound[i][j] << " ";
+            cout << lower_bound[c - 'a'][j] << " ";
         }
         cout << endl;
 #endif
