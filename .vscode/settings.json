@@ -76,7 +76,9 @@
         "*.wls": "wolfram",
         "median.C": "cpp",
         "grade.C": "cpp",
-        "main.C": "cpp"
+        "main.C": "cpp",
+        "rope": "cpp",
+        "slist": "cpp"
     },
     "C_Cpp.errorSquiggles": "disabled"
 }

@@ -8,18 +8,20 @@ signed main(){
     int n; string s; cin >> n >> s;
 
     auto hasDuplicateSubstring = [&](int length) {
-        unordered_map<string, int> seen; // val = starting index
+        unordered_map<string, unordered_set<int>> seen; // val = starting indices
         for (int i = 0; i <= n - length; i++) {
             string substring = s.substr(i, length);
-            if (seen.count(substring) && i >= seen[substring] + length) {
-                return true;
+            if (seen.count(substring)) {
+                for(int starting_index: seen[substring])
+                    if(i >= starting_index + length)
+                        return true;
             }
-            seen[substring] = i;
+            seen[substring].insert(i);
         }
         return false;
-     };    
+    };    
 
-    int left = 1, right = n + 10, ans = 0;
+    int left = 1, right = s.length() + 10, ans = 0;
     while (left <= right) {
         int mid = left + (right - left) / 2;
         if (hasDuplicateSubstring(mid)) {

@@ -1,6 +1,6 @@
 #include <bits/stdc++.h>
 using namespace std;
-#define int long long
+// #define int long long
 
 // #define DEBUG
 
@@ -37,18 +37,20 @@ signed main(){
     for (int i = 0; i < s.size(); ++i) {
         char c = s[i];
         pos[c - 'a'][c].push_back(i);
-        lower_bound[c - 'a'][i + 1] = pos[c - 'a'][c].size();
-        if (i > 0) {
-            for (int j = 0; j < 26; ++j) {
-                if (lower_bound[j][i + 1] == 0) {
-                    lower_bound[j][i + 1] = lower_bound[j][i];
-                }
+    }
+
+    for (int i = 0; i < 26; ++i) {
+        int index = 0;
+        for (int j = 0; j <= s.size(); ++j) {
+            while (index < pos[i]['a' + i].size() && pos[i]['a' + i][index] < j) {
+                ++index;
             }
+            lower_bound[i][j] = index;
         }
 #ifdef DEBUG
-        cout << "Lower bound for character " << c << ": " << endl;
+        cout << "Lower bound for character " << (char)('a' + i) << ": " << endl;
         for (int j = 0; j <= s.size(); ++j) {
-            cout << lower_bound[c - 'a'][j] << " ";
+            cout << lower_bound[i][j] << " ";
         }
         cout << endl;
 #endif
@@ -67,6 +69,9 @@ signed main(){
             if (lower_bound[i][r1 + 1] > lower_bound[i][l1]) {
                 chars1.insert('a' + i);
             }
+            // if (lower_bound[i][r2 + 1] > lower_bound[i][l2]) {
+            //     chars2.insert('a' + i);
+            // }
         }
 
 #ifdef DEBUG
