@@ -36,18 +36,26 @@ signed main(){
     int T; cin >> T;
     while(T--) {
         string s; cin >> s;
-        string s1, s2; int index = 0;
+        int n = s.size();
+        vector<int> prefix(n, 0);
+        int len = 0;
 
-        for(char c: s) {
-            if(!s1.empty() && s1[index % s1.length()] == c){
-                index %= s1.length(); index++; s2 += (c);
-            } 
-            else {
-                index = 0; s1 += s2;
-                s2.clear(); s1 += c;
+        for (int i = 1; i < n; i++) {
+            while (len > 0 && s[i] != s[len]) {
+                len = prefix[len - 1];
             }
+            if (s[i] == s[len]) {
+                len++;
+            }
+            prefix[i] = len;
         }
-        cout << s1.length() - index << '\n';
+
+        int cycle_length = n - prefix[n - 1];
+        if (n % cycle_length == 0 && cycle_length < n) {
+            cout << 0 << '\n';
+        } else {
+            cout << cycle_length - (n % cycle_length) << '\n';
+        }
     }
 
 
