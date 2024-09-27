@@ -24,6 +24,9 @@ void getnext()
         {
             k = ne[k];
         }
+        #ifdef DEBUG
+        cout << "j: " << j << ", k: " << k << endl;
+        #endif
     }
 }
 int main()
@@ -33,10 +36,16 @@ int main()
     while (t--)
     {
         scanf("%s", a);
+        #ifdef DEBUG
+        cout << "String a: " << a << endl;
+        #endif
         lena = strlen(a);
         getnext();
         int ans = 0;
         int m = lena - ne[lena]; // 循环节
+        #ifdef DEBUG
+        cout << "lena: " << lena << ", m: " << m << ", ne[lena]: " << ne[lena] << endl;
+        #endif
         if (lena % m == 0 && lena / m >= 2)
         { // 至少右一个循环节
             cout << 0 << endl;
