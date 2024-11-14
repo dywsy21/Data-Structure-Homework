@@ -1,0 +1,25 @@
+Discrepancy found!
+Input:
+6
+XKqhH
+bjt
+SadjoeDmIdgoZfTEjq
+tjtjt
+BsOTwhaYnJoEA
+RCmJbqyYEEzGfGO
+
+E_correct.exe output:
+5
+3
+18
+1
+13
+15
+
+E.exe output:
+5
+3
+18
+0
+13
+15

@@ -19,7 +19,7 @@ signed main(){
             seen[substring].insert(i);
         }
         return false;
-    };    
+    };
 
     int left = 1, right = s.length() + 10, ans = 0;
     while (left <= right) {

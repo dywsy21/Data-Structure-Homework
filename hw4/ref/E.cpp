@@ -3,6 +3,7 @@
 #include <math.h>
 #include <iostream>
 #include <algorithm>
+#define DEBUG
 using namespace std;
 const int maxn = 1e6 + 100;
 char a[maxn];
@@ -24,9 +25,6 @@ void getnext()
         {
             k = ne[k];
         }
-        #ifdef DEBUG
-        cout << "j: " << j << ", k: " << k << endl;
-        #endif
     }
 }
 int main()
@@ -41,6 +39,10 @@ int main()
         #endif
         lena = strlen(a);
         getnext();
+        for(int i = 0; i <= lena; i++)
+        {
+            cout << ne[i] << " ";
+        }
         int ans = 0;
         int m = lena - ne[lena]; // 循环节
         #ifdef DEBUG
