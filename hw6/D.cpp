@@ -30,7 +30,7 @@ vector<int> max_bucket_capacities(int n, vector<int>& a) {
         ret[length - 1] = max(ret[length - 1], a[i]);
     }
 
-    // 之前应该要对index在 0..length 内的ret的值都重设一遍的，这样也能解决问题，而且更快
+    // 之前应该要对index在 0..length 内的ret的值都重设一遍的，然而这样也能解决问题，而且更快
     for(int i = n - 2; i >= 0; i--) ret[i] = max(ret[i], ret[i + 1]);
     
     return ret;

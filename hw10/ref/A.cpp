@@ -15,11 +15,11 @@ int getSize(int x) {
 }
 
 int getRank(int x) {
-    int rank = 1, curr = x;
-    while (curr > 1) {
-        if (curr % 2) rank += getSize(curr - 1) + 1; 
+    int rank = 1, cur = x;
+    while (cur > 1) {
+        if (cur % 2) rank += getSize(cur - 1) + 1; 
         else rank++;
-        curr /= 2;
+        cur /= 2;
     }
     return rank;
 }

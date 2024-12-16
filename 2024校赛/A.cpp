@@ -7,12 +7,14 @@ using namespace __gnu_cxx;
 
 signed main(){
     ios::sync_with_stdio(0); cin.tie(0); cout.tie(0);
-    int n, k; cin >> n >> k;
-    int a[n]; for(int i = 0; i < n; i++) cin >> a[i];
+    int n; cin >> n;
+    for(int i { n / 328}; i >= 0; i--)
+        if((n - 328 * i) % 268 == 0) {
+            cout << i;
+            return 0;
+        }
 
-    // Directly take top K elements
-    sort(a, a + n, greater<int>());
-    cout << accumulate(a, a + k, 0LL);
+    cout << -1;
 
     // system("pause");
     return 0;

@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 unsigned int xorshift(unsigned int x) {
     x ^= x << 13;
@@ -8,64 +9,53 @@ unsigned int xorshift(unsigned int x) {
     return x;
 }
 
-void heapify(unsigned int *heap, int n, int i) {
-    int smallest = i;
-    int left = 2 * i + 1;
-    int right = 2 * i + 2;
-    
-    if (left < n && heap[left] < heap[smallest])
-        smallest = left;
-    
-    if (right < n && heap[right] < heap[smallest])
-        smallest = right;
-    
-    if (smallest != i) {
-        unsigned int temp = heap[i];
-        heap[i] = heap[smallest];
-        heap[smallest] = temp;
-        heapify(heap, n, smallest);
-    }
-}
+const int base = 256;
 
-void buildHeap(unsigned int *heap, int n) {
-    for (int i = n / 2 - 1; i >= 0; i--) {
-        heapify(heap, n, i);
+void radixSort(unsigned int *arr, int n) {
+    unsigned int *output = (unsigned int *)malloc(n * sizeof(unsigned int));
+    unsigned int max = arr[0];
+    for (int i = 1; i < n; i++) if (arr[i] > max) max = arr[i];
+    
+    if (max == 0) {
+        free(output);
+        return;
     }
-}
 
-void insertHeap(unsigned int *heap, int *size, unsigned int value) {
-    if (*size < 40000000) {
-        heap[*size] = value;
-        (*size)++;
-        buildHeap(heap, *size);
-    } else if (value > heap[0]) {
-        heap[0] = value;
-        heapify(heap, *size, 0);
+    for (unsigned int exp = 1; exp > 0 && max / exp > 0; exp *= base) {
+        int count[256] = {0};
+
+        for (int i = 0; i < n; i++) count[(arr[i] / exp) % base]++;
+        for (int i = 1; i < base; i++) count[i] += count[i - 1];
+        
+        for (int i = n - 1; i >= 0; i--) { // 反过来是因为count(即index)在下降，但是arr是增的，所以要从后往前
+            output[count[(arr[i] / exp) % base] - 1] = arr[i];
+            count[(arr[i] / exp) % base]--;
+        }
+        memcpy(arr, output, n * sizeof(unsigned int));
     }
+    free(output);
 }
 
 int main() {
     int n; unsigned int x0;
     scanf("%d %u", &n, &x0);
     
-    unsigned int *heap = (unsigned int *)malloc(n * sizeof(unsigned int));
-    if (!heap) return 1;
+    unsigned int *arr = (unsigned int *)malloc(n * sizeof(unsigned int));
+    if (!arr) return 1;
     
-    int size = 0;
     unsigned int xi = x0;
-    
     for (int i = 0; i < n; i++) {
         xi = xorshift(xi);
-        insertHeap(heap, &size, xi);
+        arr[i] = xi;
     }
+    
+    radixSort(arr, n);
     
     unsigned long long sum = 0;
-    for (int i = 0; i < n; i++) {
-        sum += (i + 1) * heap[i];
-    }
+    for (int i = 0; i < n; i++) sum += (unsigned long long)(i + 1) * arr[i];
     
-    printf("%llu\n", sum);
+    printf("%u", (unsigned int)(sum % (1ULL << 32)));
     
-    free(heap);
+    free(arr);
     return 0;
 }

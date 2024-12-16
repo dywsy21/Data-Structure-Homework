@@ -20,7 +20,7 @@ signed main() {
             while (!stk.empty() && v > ary[stk.back()]) stk.pop_back();
             stk.push_back(m);
             ary[m] = v;
-        } 
+        }
         else {
             // lower_bound: find the first element which >= m - v + 1
             int idx = lower_bound(stk.begin(), stk.end(), m - v + 1) - stk.begin();

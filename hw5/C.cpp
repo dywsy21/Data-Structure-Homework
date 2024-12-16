@@ -26,3 +26,20 @@ signed main(){
     cout << all_substr_nums << endl;
     return 0;
 }
+
+signed main(){
+    ios::sync_with_stdio(0); cin.tie(0); cout.tie(0);
+    string s; cin >> s;
+    
+    int ans = 0;
+
+    for(int sz {1}; sz <= s.size(); sz++) {
+        unordered_set<string> substrs;
+        for(int i {}; i + sz <= s.size(); i++) {
+            substrs.insert(s.substr(i, sz));
+        }
+        ans += substrs.size();
+    }
+    cout << ans << endl;
+    return 0;
+}

@@ -9,9 +9,9 @@ int hanoi_steps(int disk, int from, int to, vector<int>& pos) { // returns the n
     int aux = 6 - from - to; // 剩余的第三个柱子
     if (pos[disk] == from) return hanoi_steps(disk - 1, from, aux, pos); // 还没移动的部分
     else if (pos[disk] == to) {         
-        int already_taken_steps = (1LL << (disk - 1)), steps_taken_of_previous_disk = hanoi_steps(disk - 1, aux, to, pos); // 2^(disk-1)
-        if(steps_taken_of_previous_disk == -1) return -1;
-        else return already_taken_steps + steps_taken_of_previous_disk; // 已经移动了的部分
+        int base_steps = (1LL << (disk - 1)), additional_steps = hanoi_steps(disk - 1, aux, to, pos); // 2^(disk-1)
+        if(additional_steps == -1) return -1;
+        else return base_steps + additional_steps; // 已经移动了的部分
     } else return -1;
 }
 
